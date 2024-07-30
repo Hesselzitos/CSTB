@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.example.demo.message";
+option java_outer_classname = "TransactionProto";
+option objc_class_prefix = "HLW";
+
+package message;
+
+// The greeting service definition.
+service bankTransactionQueeBACENAdvisor {
+  // Sends a Transaction
+  rpc sendSucessTransaction (Transaction) returns (TransactionReply) {}
+}
+
+// The request message containing the user's name.
+message Transaction {
+  string sourceName = 1;
+  string sourceNumDoc = 2;
+  string destinationName = 3;
+  string destinationNumDoc = 4;
+  string transactionValue = 5;
+
+}
+
+// The response message containing the greetings
+message TransactionReply {
+  string statusCode = 1;
+}
