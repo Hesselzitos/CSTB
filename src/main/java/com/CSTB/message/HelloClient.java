@@ -20,17 +20,18 @@ public class HelloClient {
     }
 
     /** Say hello to server. */
-    public void greet(String name) {
-        logger.info("Will try to greet " + name + " ...");
+    public HelloReply greet(String name) {
+        logger.info("Will try to send the date-time " + name + " ...");
         HelloRequest request = HelloRequest.newBuilder().setName(name).build();
         HelloReply response;
         try {
             response = blockingStub.sayHello(request);
         } catch (StatusRuntimeException e) {
             logger.log(Level.WARNING, "RPC failed: {0}", e.getStatus());
-            return;
+            return HelloReply.getDefaultInstance();
         }
-        logger.info("Greeting: " + response.getMessage());
+        logger.info(response.getMessage());
+        return response;
     }
 
     /**
