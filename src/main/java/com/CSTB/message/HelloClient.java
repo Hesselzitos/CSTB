@@ -20,17 +20,17 @@ public class HelloClient {
     }
 
     /** Say hello to server. */
-    public HelloReply greet(String name) {
+    public MessageReply send(String canal, String name) {
         logger.info("Will try to send the date-time " + name + " ...");
-        HelloRequest request = HelloRequest.newBuilder().setName(name).build();
-        HelloReply response;
+        SendMessageRequest message = SendMessageRequest.newBuilder().setChannel(canal).setMessage(name).build();
+        MessageReply response;
         try {
-            response = blockingStub.sayHello(request);
+            response = blockingStub.sendMessage(message);
         } catch (StatusRuntimeException e) {
             logger.log(Level.WARNING, "RPC failed: {0}", e.getStatus());
-            return HelloReply.getDefaultInstance();
+            return MessageReply.getDefaultInstance();
         }
-        logger.info(response.getMessage());
+        logger.info(response.getAck());
         return response;
     }
 
